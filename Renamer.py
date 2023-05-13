@@ -6,7 +6,6 @@ VideoFileType = input('Whats the video file type?\n')
 SubsFileType = input('Whats the substitles file type?\n')
 
 os.chdir(VideoDir)
-subsdir = GetSubfileDirectory(VideoDir)
 
 filelist = os.listdir()
 currdir = os.getcwd()
@@ -26,9 +25,3 @@ for i in filelist:
                 # print(k)
                 SubsFileDir = subsdir +'\\'+ FileName + '\\' + k
                 shutil.copyfile(SubsFileDir,currdir + '\\' + FileName + SubsFileType)
-
-def GetSubfileDirectory(DirectoryToSearch):
-    FolderList = os.listdir
-    for j in DirectoryToSearch:
-        if 'Subs' in j:
-            return()
