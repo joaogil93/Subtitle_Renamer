@@ -5,17 +5,20 @@ import shutil
 
 class SubRenamer():
 
-    def __init__(self,VideoDir,SubsFileType,VideoFileType):
+    def __init__(self,VideoDir,SubsFileType,VideoFileType,SubLanguage):
         
         self.VideoDirectory = VideoDir
         self.SubsType = SubsFileType
         self.VideoType = VideoFileType
-
+        self.Language = SubLanguage
         
 
     def RenameFile(self):
         
-        os.chdir(self.VideoDirectory)
+        try:
+            os.chdir(self.VideoDirectory)
+        except:
+            print('The directory was not found.')
         
         filelist = os.listdir()
         currdir = os.getcwd()
@@ -30,8 +33,8 @@ class SubRenamer():
                 
                 SubtitleFile = os.listdir()
                 for k in SubtitleFile:
-                    
-                    if 'English.srt' in k:
+                    SubLanguage = self.Language + self.SubsType
+                    if SubLanguage in k:
                         
                         SubsFileDir = subsdir +'\\'+ FileName + '\\' + k
                         shutil.copyfile(SubsFileDir,currdir + '\\' + FileName + self.SubsType)
