@@ -1,27 +1,37 @@
 import os
 import shutil
 
-VideoDir = input('Whats the Video directory?\n')
-VideoFileType = input('Whats the video file type?\n')
-SubsFileType = input('Whats the substitles file type?\n')
 
-os.chdir(VideoDir)
 
-filelist = os.listdir()
-currdir = os.getcwd()
-subsdir = currdir + '\\' + 'Subs'
+class SubRenamer():
 
-for i in filelist:
-    # print(i)
-    if VideoFileType in i:
-        FileName = i.replace(VideoFileType,'')
-        # os.chdir(subsdir)
-        os.chdir(subsdir +'\\'+ FileName)
+    def __init__(self,VideoDir,SubsFileType,VideoFileType):
         
-        SubtitleFile = os.listdir()
-        for k in SubtitleFile:
-            print(k)
-            if 'English.srt' in k:
-                # print(k)
-                SubsFileDir = subsdir +'\\'+ FileName + '\\' + k
-                shutil.copyfile(SubsFileDir,currdir + '\\' + FileName + SubsFileType)
+        self.VideoDirectory = VideoDir
+        self.SubsType = SubsFileType
+        self.VideoType = VideoFileType
+
+        
+
+    def RenameFile(self):
+        
+        os.chdir(self.VideoDirectory)
+        
+        filelist = os.listdir()
+        currdir = os.getcwd()
+        subsdir = currdir + '\\' + 'Subs'
+        
+        for i in filelist:
+            
+            if self.VideoType in i:
+                FileName = i.replace(self.VideoType,'')
+                
+                os.chdir(subsdir +'\\'+ FileName)
+                
+                SubtitleFile = os.listdir()
+                for k in SubtitleFile:
+                    
+                    if 'English.srt' in k:
+                        
+                        SubsFileDir = subsdir +'\\'+ FileName + '\\' + k
+                        shutil.copyfile(SubsFileDir,currdir + '\\' + FileName + self.SubsType)
