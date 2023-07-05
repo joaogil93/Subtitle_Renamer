@@ -19,6 +19,7 @@ class SubRenamer():
             os.chdir(self.VideoDirectory)
         except:
             print('The directory was not found.')
+            exit
         
         filelist = os.listdir()
         currdir = os.getcwd()
@@ -29,8 +30,12 @@ class SubRenamer():
             if self.VideoType in i:
                 FileName = i.replace(self.VideoType,'')
                 
-                os.chdir(subsdir +'\\'+ FileName)
-                
+                try:
+                    os.chdir(subsdir +'\\'+ FileName)
+                except:
+                    print('The directory was not found.')
+                    exit
+
                 SubtitleFile = os.listdir()
                 for k in SubtitleFile:
                     SubLanguage = self.Language + self.SubsType
